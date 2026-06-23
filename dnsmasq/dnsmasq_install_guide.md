@@ -51,7 +51,8 @@ port=53
 domain-needed
 # 사설 IP를 외부 DNS로부터 받아오는 것을 무시
 bogus-priv
-# DNSSEC 활성화 (DNS 위조 방지)
+# DNSSEC 활성화 (DNS 위조 방지, trust-anchors 파일 필수)
+conf-file=/usr/share/dnsmasq/trust-anchors.conf
 dnssec
 # DNS 서버 순서를 엄격히 따름
 strict-order
@@ -61,8 +62,10 @@ expand-hosts
 domain=example.com
 # DNS 질의 요청을 처리할 IP
 listen-address=127.0.0.1,(192.168.1.100)
-# DNS 질의 로그 파일 경로
-log-queries=/var/log/dnsmasq.log
+# DNS 질의 로그 활성화
+log-queries
+# DNS 로그 파일 경로
+log-facility=/var/log/dnsmasq.log
 # /etc/resolv.conf 무시하고 server= 로 지정한 DNS만 사용
 no-resolv
 # 외부 DNS 설정

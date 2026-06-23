@@ -39,6 +39,7 @@ sudo docker run -d -p 443:443 --restart=always --name registry \
   -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
   -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
   registry:3
+# 참고: registry v3에서는 기본 설정 경로가 /etc/distribution/config.yml로 변경됨
 ```
 
 ## 4. CA 인증서 등록 (Ubuntu)

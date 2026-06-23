@@ -61,7 +61,7 @@ sudo apt-get install rabbitmq-server -y --fix-missing
 | Home directory | `/var/lib/rabbitmq` |
 | Config files | `/etc/rabbitmq/rabbitmq.conf`, `/etc/rabbitmq/advanced.config` |
 | `rabbitmq.conf` | 새로운 스타일 형식 (대부분의 설정에 권장) |
-| `advanced.config` | ini 스타일, 고급 설정용 |
+| `advanced.config` | Erlang term 형식, 고급 설정용 |
 
 **설정 예시:** [rabbitmq.conf.example](https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbit/docs/rabbitmq.conf.example)
 

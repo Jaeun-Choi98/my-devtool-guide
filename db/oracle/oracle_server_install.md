@@ -67,7 +67,6 @@ sqlplus system
 ```sql
 CREATE USER [유저명] IDENTIFIED BY [passwd];
 GRANT CONNECT, RESOURCE, DBA TO [유저명];
-COMMIT;
 ```
 
 ---

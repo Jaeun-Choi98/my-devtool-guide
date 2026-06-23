@@ -4,7 +4,7 @@
 
 ### 1.1. JDK 설치 확인
 
-JDK 1.5.17 이상이 설치되어 있어야 함 (JDK 1.9 이상은 지원하지 않음).
+JDK 8 이상이 설치되어 있어야 함 (Tibero 7 기준).
 
 ```bash
 sudo apt -y install openjdk-17-jdk

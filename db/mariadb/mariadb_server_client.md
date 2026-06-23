@@ -81,7 +81,7 @@ bind-address = 0.0.0.0
 # bind-address = 127.0.0.1
 
 character-set-server    = utf8mb4
-character-set-collations= utf8mb4=general_ci
+character-set-collations= utf8mb4=utf8mb4_general_ci
 
 innodb_buffer_pool_size = 4G
 innodb_buffer_pool_chunk_size = 4M

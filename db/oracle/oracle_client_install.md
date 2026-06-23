@@ -23,7 +23,7 @@ unzip instantclient-sdk-linux.x64-19.26 -d /oracle/instant-client
 ## 3. 환경 변수 설정
 
 ```bash
-sudo vim ~/.bashrc
+vim ~/.bashrc
 ```
 
 ```bash
@@ -47,7 +47,7 @@ sudo vim /oracle/instant-client/instantclient_19_26/network/admin/tnsnames.ora
     )
     (CONNECT_DATA =
       (SERVICE_NAME = [service_name])
-      (SID = [sid])
+      # 또는 SID 방식: (SID = [sid])
     )
   )
 ```

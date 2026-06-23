@@ -104,7 +104,9 @@ GRANT CREATE TABLE TO 사용자명;
 GRANT CREATE VIEW TO 사용자명;
 GRANT CREATE PROCEDURE TO 사용자명;
 GRANT CREATE SEQUENCE TO 사용자명;
-GRANT SELECT ON 소유자.테이블 TO 사용자명;   -- (ANY TABLE: 모든 테이블 조회 가능)
+GRANT SELECT ON 소유자.테이블 TO 사용자명;
+-- 모든 테이블 조회가 필요한 경우 (시스템 권한):
+-- GRANT SELECT ANY TABLE TO 사용자명;
 
 -- 또는 CONNECT, RESOURCE 롤 부여 (일반적으로 많이 사용)
 GRANT CONNECT, RESOURCE TO 사용자명;

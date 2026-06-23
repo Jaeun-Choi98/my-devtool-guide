@@ -7,17 +7,22 @@
 sudo apt update
 
 # 2. 필수 패키지 설치
-sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+sudo apt install ca-certificates curl
 
 # 3. Docker GPG 키 추가
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 
 # 4. Docker 리포지토리 추가
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update
 
 # 5. Docker 설치
-sudo apt install docker-ce
+sudo apt install docker-ce docker-ce-cli containerd.io
 ```
 
 ## RHEL / CentOS

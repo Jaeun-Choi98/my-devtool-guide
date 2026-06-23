@@ -109,8 +109,8 @@ rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
 
 ```bash
 sudo sysctl -a | grep kernel.msg           # 확인
-sudo sysctl -w kernel.msgmax=65535         # 최대 메시지 크기
-sudo sysctl -w kernel.msgmnb=524280        # 메시지 큐 크기
+sudo sysctl -w kernel.msgmax=65536         # 최대 메시지 크기
+sudo sysctl -w kernel.msgmnb=1048576       # 메시지 큐 크기
 sudo sysctl -w kernel.msgmni=16384         # 최대 메시지 큐 개수
 sudo sysctl -p                             # 적용
 ```

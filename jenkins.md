@@ -12,14 +12,16 @@ apt-get install -y openjdk-17-jdk
 ### 2. Jenkins 공식 GPG 키 추가
 
 ```bash
-curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
-    /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+# 키는 3년마다 갱신됨 (2023 → 2026 → ...)
+# 최신 키 URL은 공식 문서 확인: https://www.jenkins.io/doc/book/installing/linux/
+sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+    https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
 ```
 
 ### 3. Jenkins 저장소 추가
 
 ```bash
-echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
     https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
     /etc/apt/sources.list.d/jenkins.list > /dev/null
 ```
