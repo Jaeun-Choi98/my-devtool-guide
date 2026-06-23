@@ -16,7 +16,7 @@ sudo docker exec -it mysql-container bash
 
 ### 도커 볼륨을 이용한 설정/데이터 분리
 
-설정 파일은 [MariaDB 설치 가이드](../db/mariadb/mariadb_server_client.md) 참고
+설정 파일은 [MariaDB 설치 가이드](../db/mariadb/install.md) 참고
 
 ```bash
 sudo docker run -d --name mariadb11 \
