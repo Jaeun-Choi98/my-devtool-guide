@@ -95,15 +95,19 @@ xferlog_enable=YES                  # 전송 로그 활성화
 # xferlog_file=/var/log/vsftpd.log  # 전송 로그 위치 (기본값)
 dirmessage_enable=YES
 ftpd_banner=Welcome to My FTP Server!
+
+# 아래는 설정 필요x 
 pasv_enable=YES
 pasv_min_port=60020
 pasv_max_port=60030
+
 ssl_enable=NO
 rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
 rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
 ```
 
 **접속:** 파일 탐색기에서 `ftp://[사용자ID@]서버_IP[:포트]`
+**접속 시 에러 로그 확인:** sudo tail -f /var/log/vsftpd.log
 
 ## 6. 메시지 큐 파라미터 설정
 
