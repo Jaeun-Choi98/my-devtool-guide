@@ -31,6 +31,13 @@ mysqldump -u username -p --single-transaction --routines --triggers database_nam
 | `--triggers` | 트리거 포함 |
 | `--single-transaction` | 일관된 백업을 위해 트랜잭션으로 묶어서 백업 |
 
+**간단히 개별 테이블 액셀 추출**
+```bash
+mysql -u root -p mydb --batch \
+  -e "SELECT * FROM your_table" \
+  > /tmp/output.tsv
+```
+
 ### 2. Import
 
 ```bash
