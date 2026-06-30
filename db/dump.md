@@ -35,7 +35,8 @@ mysqldump -u username -p --single-transaction --routines --triggers database_nam
 ```bash
 mysql -u root -p mydb --batch \
   -e "SELECT * FROM your_table" \
-  > /tmp/output.tsv
+  | sed 's/\t/,/g' \
+  > /tmp/output.csv
 ```
 
 ### 2. Import
