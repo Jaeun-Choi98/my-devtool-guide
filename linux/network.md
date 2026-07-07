@@ -3,6 +3,12 @@
 ## 네트워크 상태 확인
 
 ```bash
+# 네트워크 하드웨어 장비 인식
+sudo lshw -c "network" / sudo lshw -class network
+
+# 10초간 포트 LED 깜빡이기 (어떤 포트인지 육안 확인)
+ethtool -p eno1 10
+
 # 네트워크 연결 상태 확인 (state UP 확인)
 ip addr show
 
