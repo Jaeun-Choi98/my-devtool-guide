@@ -24,6 +24,7 @@ sudo vim /etc/netplan/*.yaml
 
 ```yaml
 network:
+# renderer: networkd
   ethernets:
     eno1:
       dhcp4: true
