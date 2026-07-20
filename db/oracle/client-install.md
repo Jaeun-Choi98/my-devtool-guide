@@ -23,7 +23,7 @@ unzip instantclient-sdk-linux.x64-19.26 -d /oracle/instant-client
 ## 3. 환경 변수 설정
 
 ```bash
-vim ~/.bashrc
+vim ~/.profile
 ```
 
 ```bash
@@ -60,4 +60,20 @@ sudo apt install libaio1
 
 # 접속
 sqlplus user/passwd@ServiceName
+```
+
+
+## 6. 의존성 설치
+
+### Ubuntu 24.04 이전
+
+``` bash
+sudo apt-get install libaio1 libaio-dev
+```
+
+### Ubuntu 24.04
+
+``` bash
+sudo apt-get install libaio-dev
+sudo ln -s /usr/lib/x86_64-linux-gnu/libaio.so.1t64 /opt/oracle/instantclient_19_8/libaio.so.1
 ```
