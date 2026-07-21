@@ -2,12 +2,15 @@
 
 ## 배경 지식: /etc/resolv.conf와 systemd-resolved
 
-- 응용프로그램은 보통 `/etc/resolv.conf`을 통해 DNS 질의를 요청한다.
-- `/etc/resolv.conf` 파일이 `/run/systemd/resolve/stub-resolv.conf`에 심볼릭 링크되어 있고, 내부에 `127.0.0.53`으로 명시되어 있다.
-- `systemd-resolved`는 stub DNS 서버 기능과 DNS resolve 기능을 가지고 있다.
-- stub DNS 서버(`127.0.0.53`)는 들어온 질의를 `systemd-resolved` 데몬에게 위임한다.
-- `systemd-resolved`는 실제 DNS resolve 기능을 수행하며, `/run/systemd/resolve/resolv.conf`을 반영하여 처리한다.
-- `systemd-resolved`의 설정을 수정하려면 `/etc/systemd/resolved.conf`를 수정한다.
+DNS 질의 흐름
+
+1. 앱이 /etc/resolv.conf(→ stub-resolv.conf)를 참조해서 127.0.0.53:53으로 질의를 보냄
+2. 127.0.0.53:53은 별도 프로세스가 아니라 systemd-resolved 자신이 열어놓은 stub 리스너임. 즉 "다른 데몬에게 위임"하는 게 아니라, 같은 프로세스 내부에서 요청을 받아 바로 처리함
+3. systemd-resolved는 /etc/systemd/resolved.conf 설정과 각 네트워크 인터페이스가 받은 DNS 정보(DHCP, networkd/NetworkManager 등)를 바탕으로 실제 업스트림 DNS 서버에 질의를 날림
+
+/run/systemd/resolve/stub-resolv.conf: nameserver 127.0.0.53만 담음. 모든 질의가 로컬 stub을 거치게 해서 캐싱/DNSSEC 검증 등을 적용받게 하는 용도. /etc/resolv.conf가 기본으로 이걸 가리킴
+/run/systemd/resolve/resolv.conf: 모든 인터페이스의 실제 업스트림 DNS 서버 목록을 합쳐놓은 raw 목록. stub을 안 쓰고 싶은 프로그램이 직접 참조하는 용도(uplink/static 모드)
+-> 파일 두 개의 역할 (둘 다 systemd-resolved가 만드는 출력물이지 입력이 아님)
 
 ---
 
@@ -66,10 +69,7 @@ listen-address=127.0.0.1,(192.168.1.100)
 log-queries
 # DNS 로그 파일 경로
 log-facility=/var/log/dnsmasq.log
-# /etc/resolv.conf 무시하고 server= 로 지정한 DNS만 사용
-no-resolv
-# 외부 DNS 설정
-server=8.8.8.8
+
 ```
 
 ```bash
