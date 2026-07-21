@@ -9,7 +9,9 @@ DNS 질의 흐름
 3. systemd-resolved는 /etc/systemd/resolved.conf 설정과 각 네트워크 인터페이스가 받은 DNS 정보(DHCP, networkd/NetworkManager 등)를 바탕으로 실제 업스트림 DNS 서버에 질의를 날림
 
 /run/systemd/resolve/stub-resolv.conf: nameserver 127.0.0.53만 담음. 모든 질의가 로컬 stub을 거치게 해서 캐싱/DNSSEC 검증 등을 적용받게 하는 용도. /etc/resolv.conf가 기본으로 이걸 가리킴
+
 /run/systemd/resolve/resolv.conf: 모든 인터페이스의 실제 업스트림 DNS 서버 목록을 합쳐놓은 raw 목록. stub을 안 쓰고 싶은 프로그램이 직접 참조하는 용도(uplink/static 모드)
+
 -> 파일 두 개의 역할 (둘 다 systemd-resolved가 만드는 출력물이지 입력이 아님)
 
 ---
