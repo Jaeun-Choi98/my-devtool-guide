@@ -2,21 +2,7 @@
 
 ## 1. 설치 전 준비사항 (Requirement)
 
-### 1.1. JDK 설치 확인
-
-JDK 8 이상이 설치되어 있어야 함 (Tibero 7 기준).
-
-```bash
-sudo apt -y install openjdk-17-jdk
-
-sudo vim ~/.profile
-# 추가:
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-
-source ~/.profile
-```
-
-### 1.2. Tibero Client 설치 파일 준비
+### 1.1. Tibero Client 설치 파일 준비
 
 [Technet](https://technet.tmax.co.kr/ko/front/main/main.do)에서 tar.gz 파일 다운로드 (로그인 필요)
 
