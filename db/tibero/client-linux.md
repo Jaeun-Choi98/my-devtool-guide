@@ -61,18 +61,6 @@ tibero=(
 )
 ```
 
-### 2.5. tbsql 실행을 위한 의존 패키지 설치
-
-```bash
-sudo apt -y install libncurses5 libaio1
-```
-
-### 2.6. tbsql 접속
-
-```bash
-tbsql [유저아이디]/[패스워드]@[tbdsn에서 설정한 별칭]
-```
-
 ---
 
 ## 연결 흐름 참고
@@ -82,3 +70,4 @@ tbsql [유저아이디]/[패스워드]@[tbdsn에서 설정한 별칭]
 ```
 Go App / isql → ODBC → tbodbc → Tibero DB
 ```
+
