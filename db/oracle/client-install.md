@@ -86,10 +86,10 @@ sudo vi tnsnames.ora
 THEROADORA11 =
   (DESCRIPTION =
     (ADDRESS_LIST =
-      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.2.161)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.2.100)(PORT = 1521))
     )
     (CONNECT_DATA =
-      (SERVICE_NAME = theroadora11)
+      (SERVICE_NAME = test111)
     )
   )
 
@@ -97,10 +97,10 @@ THEROADORA11 =
 THEROADORA11_2 =
   (DESCRIPTION =
     (ADDRESS_LIST =
-      (ADDRESS = (PROTOCOL = TCP)(HOST = 118.36.24.202)(PORT = 61521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.2.101)(PORT = 61521))
     )
     (CONNECT_DATA =
-      (SERVICE_NAME = theroadora11)
+      (SERVICE_NAME = test11)
     )
   )
 ```
@@ -110,6 +110,6 @@ THEROADORA11_2 =
 ## 6. SQLPlus 접속
 
 ``` bash
-sqlplus UWITS_TEST/UWITS_TEST@theroadora11
+sqlplus test/test@test111
 ```
 
