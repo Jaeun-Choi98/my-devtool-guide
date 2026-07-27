@@ -147,10 +147,51 @@ df -h
 
 ## VMware 하드디스크 용량 늘리기
 
+- Desktop 
+
 ```bash
 df -h
 sudo apt install gparted
 sudo gparted
+```
+
+- Server
+1. 파티션 확장 (e.g. sda3: 18.2G → 나머지 전부)
+
+```bash
+sudo apt install cloud-guest-utils -y
+sudo growpart /dev/sda 3
+```
+
+2. 확인
+   
+```bash
+lsblk
+```
+sda3 크기가 약 58G 정도로 늘어났는지 확인.
+
+3. LVM 물리볼륨 확장
+   
+```bash
+sudo pvresize /dev/sda3
+```
+
+4. 논리볼륨 확장 (남은 공간 전부)
+
+```bash
+sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
+```
+
+5. 파일시스템 확장
+
+```bash
+sudo resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+```
+
+6. 최종 확인
+
+```bash
+df -h /
 ```
 
 ---
