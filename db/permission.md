@@ -127,6 +127,40 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON hr.employees TO app_user_role;
 GRANT app_user_role TO 사용자명;
 ```
 
+```sql
+CREATE USER 사용자명
+IDENTIFIED BY 사용자명
+DEFAULT TABLESPACE 테이블스페이스
+TEMPORARY TABLESPACE TEMP
+QUOTA UNLIMITED ON 테이블스페이스;
+
+CREATE ROLE 역할명;
+
+GRANT 
+    CREATE SESSION,
+    ALTER SESSION,
+    CREATE TABLE,
+    CREATE SYNONYM,
+    CREATE VIEW,
+    CREATE SEQUENCE,
+    CREATE DATABASE LINK,
+    CREATE PROCEDURE,
+    CREATE TRIGGER,
+    CREATE TYPE,
+    CREATE OPERATOR,
+    CREATE INDEXTYPE
+TO 역할명;
+
+GRANT 역할명 TO 사용자명;
+
+--유효기간 조회
+select username, account_status, lock_date, expiry_date
+  from dba_users;
+
+--유효기간 해제
+ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+```
+
 ### 4. 권한 확인
 
 ```sql
@@ -164,7 +198,7 @@ CREATE TABLESPACE 테이블스페이스명
     [MAXSIZE 최대크기|UNLIMITED];
 ```
 
-### 일반 테이블 스페이스 생성 예시
+### 일반 테이블 스페이스 생성 예시 ( 임시 테이블 스페이스로 사용해도 됨 )
 
 ```sql
 -- dev_data 테이블스페이스 생성
