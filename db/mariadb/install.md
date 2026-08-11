@@ -92,6 +92,14 @@ event_scheduler = ON
 
 datadir=/home/juchoi/mariadb/mysql
 
+# binlog 파일 설정
+server_id = 1
+log_bin = maria-bin
+binlog_format = ROW
+binlog_expire_logs_seconds = 604800
+max_binlog_size = 200M
+sync_binlog = 1
+
 [mysqldump]
 default-character-set = utf8mb4
 ```
@@ -113,9 +121,12 @@ sudo vim /usr/lib/systemd/system/mariadb.service
 ### 5.2. MariaDB 실행
 
 ```bash
+sudo mariadbd --help --verbose > /dev/null    # 설정 오류 사전 확인
 sudo systemctl daemon-reload
 sudo systemctl start mariadb.service
 ```
+
+
 
 ## 6. 설정 확인 방법
 
@@ -133,7 +144,12 @@ SELECT @@innodb_buffer_pool_instances;
 
 -- InnoDB Buffer 현재 상태 확인
 SHOW STATUS LIKE 'Innodb_buffer%';
+
+-- binlog 설정 확인
+SHOW VARIABLES LIKE 'bin_log%';
 ```
+
+
 
 **추가 확인:**
 
