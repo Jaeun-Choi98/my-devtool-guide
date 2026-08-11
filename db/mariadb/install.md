@@ -146,7 +146,7 @@ SELECT @@innodb_buffer_pool_instances;
 SHOW STATUS LIKE 'Innodb_buffer%';
 
 -- binlog 설정 확인
-SHOW VARIABLES LIKE 'bin_log%';
+SHOW VARIABLES LIKE 'log_bin%';
 ```
 
 
