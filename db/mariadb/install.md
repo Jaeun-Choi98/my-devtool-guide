@@ -81,7 +81,7 @@ bind-address = 0.0.0.0
 # bind-address = 127.0.0.1
 
 character-set-server    = utf8mb4
-character-set-collations= utf8mb4=utf8mb4_general_ci
+character-set-collations= utf8mb4=uca1400_ai_ci
 
 innodb_buffer_pool_size = 4G
 innodb_buffer_pool_chunk_size = 4M
@@ -97,7 +97,7 @@ server_id = 1
 log_bin = maria-bin
 binlog_format = ROW
 binlog_expire_logs_seconds = 604800
-max_binlog_size = 200M
+max_binlog_size = 600M
 sync_binlog = 1
 
 [mysqldump]
