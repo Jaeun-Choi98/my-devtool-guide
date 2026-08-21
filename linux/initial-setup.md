@@ -190,3 +190,7 @@ sudo apt install traceroute
 ```bash
 sudo apt install tcpdump
 ```
+
+#### ++현장에 pkg를 들고가야 할 경우
+docker run --rm -v $PWD/debs:/debs ubuntu:22.04 bash -c \
+  "apt-get update && apt-get install -y --download-only <패키지명> && cp /var/cache/apt/archives/*.deb /debs/"
