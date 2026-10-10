@@ -91,6 +91,7 @@ PASSWORD = TB_TEST
 isql tbodbc
 ```
 
+
 ### 2.8. 설정 확인
 
 ```bash
@@ -102,4 +103,17 @@ odbcinst -q -d
 
 # odbc.ini에 정의된 Data Source 정보 확인
 odbcinst -q -s
+```
+
+
+## 3.1. ODBC 개발 라이브러리 설치
+
+```bash
+sudo apt install unixodbc-dev
+```
+
+해당 라이브러리가 설치되어 있어야 Go ODBC 패키지를 설치할 수 있습니다.
+
+```text
+github.com/alexbrainman/odbc
 ```
