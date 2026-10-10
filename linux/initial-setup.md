@@ -222,7 +222,16 @@ sudo apt install tcpdump
 #### ++현장에 pkg를 들고가야 할 경우
 
 ```bash
-docker run --rm -v $PWD/debs:/debs ubuntu:22.04 bash -c \
-  "apt-get update && apt-get install -y --download-only <패키지명> && cp /var/cache/apt/archives/*.deb /debs/"
+# 1. 도커 사용
+docker run --rm -v $PWD/debs:/debs -w /debs ubuntu:22.04 bash -c "
+  apt-get update && \
+  apt-get install -y apt-rdepends && \
+  apt-get download \$(apt-rdepends <패키지명> | grep -v '^ ' | grep -v 'debconf-2.0')
+"
+
+# 2. 현재 os에서 사용
+sudo apt-get update && sudo apt-get install -y apt-rdepends
+sudo apt-get download $(apt-rdepends <패키지명> | grep -v '^ ' | grep -v 'debconf-2.0')
+
 ```
--o Dir::Cache::archives="/path/to/destination/"
+
