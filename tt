@@ -1,0 +1,10 @@
+.vbs
+Set ws = CreateObject("WScript.shell")
+
+Do
+
+ Wscript.Sleep 59000
+
+ ws.SendKeys "{SCROLLLOCK}{SCROLLLOCK}"
+
+Loop
