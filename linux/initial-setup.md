@@ -231,7 +231,28 @@ docker run --rm -v $PWD/debs:/debs -w /debs ubuntu:22.04 bash -c "
 
 # 2. 현재 os에서 사용
 sudo apt-get update && sudo apt-get install -y apt-rdepends
+
 sudo apt-get download $(apt-rdepends <패키지명> | grep -v '^ ' | grep -v 'debconf-2.0')
 
 ```
 
+##### ++현장 sshd 포트 변경이 필요할 경우
+```
+# 1. sshd 설정 파일 수정
+sudo vi /etc/ssh/sshd_config
+
+Port 22
+Port 2222
+
+# 2. 문법 검사
+sudo sshd -t
+
+# 3. 적용
+sudo systemctl daemon-reload
+sudo systemctl restart ssh.socket
+sudo systemctl restart sshd.service
+
+# ++ 필요할 경우 방화벽 열기
+sudo ufw allow 2222/tcp
+sudo ufw status
+```
