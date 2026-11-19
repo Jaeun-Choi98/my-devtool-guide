@@ -146,7 +146,7 @@ user1    hard    nofile    2048
 
 ## 8. 네트워크 유틸리티 설치
 
-### 8.1. NTP (시간 동기화)
+### 8.1.1 NTP (시간 동기화)
 
 ```bash
 sudo apt install ntp
@@ -156,7 +156,7 @@ sudo vim /etc/ntp.conf
 
 > 시간이 일치하지 않으면 `/etc/localtime` 심볼릭 링크를 확인
 
-**systemd-timesyncd를 사용하는 경우:**
+### 8.1.2 systemd-timesyncd를 사용
 
 ```bash
 timedatectl                         # 시간 동기화 상태 확인
@@ -175,8 +175,36 @@ PollIntervalMaxSec=2048
 ```
 
 ```bash
+timedatectl show-timesync --all             # 확인
 timedatectl list-timezones                  # 사용 가능한 Timezone 확인
 sudo timedatectl set-timezone Asia/Seoul    # Timezone 변경
+```
+
+### 8.1.3 chrony를 사용
+
+```bash
+sudo systemctl disable --now systemd-timesyncd   # 충돌 방지, 필수
+sudo apt install -y chrony
+```
+
+```bash
+sudo cp /etc/chrony/chrony.conf /etc/chrony/chrony.conf.bak   # 백업 먼저
+sudo vi /etc/chrony/chrony.conf
+```
+
+```ini
+# pool ntp.ubuntu.com        iburst maxsources 4
+# pool 0.ubuntu.pool.ntp.org iburst maxsources 1
+# pool 1.ubuntu.pool.ntp.org iburst maxsources 1
+# pool 2.ubuntu.pool.ntp.org iburst maxsources 2
+server 10.0.0.10 iburst prefer
+makestep 1.0 3
+```
+
+```bash
+sudo systemctl restart chrony
+chronyc sources -v               # 확인
+chronyc tracking                 # 확인
 ```
 
 ### 8.2. traceroute
@@ -189,4 +217,42 @@ sudo apt install traceroute
 
 ```bash
 sudo apt install tcpdump
+```
+
+#### ++현장에 pkg를 들고가야 할 경우
+
+```bash
+# 1. 도커 사용
+docker run --rm -v $PWD/debs:/debs -w /debs ubuntu:22.04 bash -c "
+  apt-get update && \
+  apt-get install -y apt-rdepends && \
+  apt-get download \$(apt-rdepends <패키지명> | grep -v '^ ' | grep -v 'debconf-2.0')
+"
+
+# 2. 현재 os에서 사용
+sudo apt-get update && sudo apt-get install -y apt-rdepends
+
+sudo apt-get download $(apt-rdepends <패키지명> | grep -v '^ ' | grep -v 'debconf-2.0')
+
+```
+
+##### ++현장 sshd 포트 변경이 필요할 경우
+```
+# 1. sshd 설정 파일 수정
+sudo vi /etc/ssh/sshd_config
+
+Port 22
+Port 2222
+
+# 2. 문법 검사
+sudo sshd -t
+
+# 3. 적용
+sudo systemctl daemon-reload
+sudo systemctl restart ssh.socket
+sudo systemctl restart sshd.service
+
+# ++ 필요할 경우 방화벽 열기
+sudo ufw allow 2222/tcp
+sudo ufw status
 ```

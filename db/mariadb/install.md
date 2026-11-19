@@ -81,7 +81,7 @@ bind-address = 0.0.0.0
 # bind-address = 127.0.0.1
 
 character-set-server    = utf8mb4
-character-set-collations= utf8mb4=utf8mb4_general_ci
+character-set-collations= utf8mb4=uca1400_ai_ci
 
 innodb_buffer_pool_size = 4G
 innodb_buffer_pool_chunk_size = 4M
@@ -91,6 +91,14 @@ lower_case_table_names = 1
 event_scheduler = ON
 
 datadir=/home/juchoi/mariadb/mysql
+
+# binlog 파일 설정
+server_id = 1
+log_bin = maria-bin
+binlog_format = ROW
+binlog_expire_logs_seconds = 604800
+max_binlog_size = 600M
+sync_binlog = 1
 
 [mysqldump]
 default-character-set = utf8mb4
@@ -113,9 +121,12 @@ sudo vim /usr/lib/systemd/system/mariadb.service
 ### 5.2. MariaDB 실행
 
 ```bash
+sudo mariadbd --help --verbose > /dev/null    # 설정 오류 사전 확인
 sudo systemctl daemon-reload
 sudo systemctl start mariadb.service
 ```
+
+
 
 ## 6. 설정 확인 방법
 
@@ -133,7 +144,12 @@ SELECT @@innodb_buffer_pool_instances;
 
 -- InnoDB Buffer 현재 상태 확인
 SHOW STATUS LIKE 'Innodb_buffer%';
+
+-- binlog 설정 확인
+SHOW VARIABLES LIKE 'log_bin%';
 ```
+
+
 
 **추가 확인:**
 

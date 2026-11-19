@@ -45,6 +45,29 @@ mysql -u root -p mydb --batch \
 mysql -u root -p < /workspace/test.sql
 ```
 
+
+### 3. binlog를 활용한 복구
+
+사고 발생 직전까지의 기록을 `mysqlbinlog` 유틸리티를 사용해 SQL문으로 변환한 뒤 적용합니다.
+
+* **특정 파일 전체 적용:**
+  ```bash
+  mysqlbinlog /var/lib/mysql/mysql-bin.0000XX | mysql -u[사용자] -p
+  ```
+* **특정 시간대 지정 복구 (Point-in-Time Recovery):** 실수하기 직전 시간(`--stop-datetime`)까지만 로그를 추출해 적용합니다.
+  ```bash
+  mysqlbinlog --stop-datetime="2026-08-11 14:00:00" /var/lib/mysql/mysql-bin.0000XX | mysql -u[사용자] -p
+  ```
+* **특정 위치(Position) 지정 복구:**
+  ```bash
+  mysqlbinlog --stop-position=12345 /var/lib/mysql/mysql-bin.0000XX | mysql -u[사용자] -p
+  ```
+* **실수로 지운 데이터만 역추적하여 복구할 때 (Flashback):** 
+  ```bash
+  mysqlbinlog --flashback /var/lib/mysql/mysql-bin.0000XX > rollback.sql
+  mysql -u[사용자] -p < rollback.sql
+  ```
+  
 ---
 
 ## Oracle
